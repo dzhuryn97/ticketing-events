@@ -1,0 +1,4 @@
+common:
+    event_bus:
+        exchange_name: 'events'
+        queues_name: 'events'

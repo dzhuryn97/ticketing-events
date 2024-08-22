@@ -7,14 +7,35 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "api-platform/core": "^3.3",
+        "doctrine/dbal": "^3",
+        "doctrine/doctrine-bundle": "^2.12",
+        "doctrine/doctrine-migrations-bundle": "^3.3",
+        "doctrine/orm": "^3.2",
+        "nelmio/cors-bundle": "^2.5",
+        "phpdocumentor/reflection-docblock": "^5.4",
+        "phpsagas/orchestrator": "^0.0.0",
+        "phpstan/phpdoc-parser": "^1.29",
+        "ramsey/uuid": "*",
+        "ramsey/uuid-doctrine": "^2.1",
+        "symfony/amqp-messenger": "7.1.*",
+        "symfony/asset": "7.1.*",
         "symfony/console": "7.1.*",
+        "symfony/doctrine-messenger": "7.1.*",
         "symfony/dotenv": "7.1.*",
+        "symfony/expression-language": "7.1.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.1.*",
+        "symfony/messenger": "7.1.*",
+        "symfony/property-access": "7.1.*",
+        "symfony/property-info": "7.1.*",
         "symfony/runtime": "7.1.*",
-        "symfony/yaml": "7.1.*"
-    },
-    "require-dev": {
+        "symfony/security-bundle": "7.1.*",
+        "symfony/serializer": "7.1.*",
+        "symfony/twig-bundle": "7.1.*",
+        "symfony/validator": "7.1.*",
+        "symfony/yaml": "7.1.*",
+        "volodymyr/ticketing-common": "*"
     },
     "config": {
         "allow-plugins": {
@@ -64,5 +85,18 @@
             "allow-contrib": false,
             "require": "7.1.*"
         }
+    },
+    "repositories": [{
+        "type": "path",
+        "url": "/common",
+        "options": {
+            "symclink": null
+        }
+    }],
+    "require-dev": {
+        "phpstan/phpstan": "^1.11",
+        "symfony/maker-bundle": "^1.60",
+        "symfony/stopwatch": "7.1.*",
+        "symfony/web-profiler-bundle": "7.1.*"
     }
 }

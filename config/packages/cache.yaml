@@ -1,5 +1,10 @@
 framework:
     cache:
+        default_doctrine_dbal_provider: 'doctrine.dbal.default_connection'
+        pools:
+            my_cache_pool:
+                adapter: cache.adapter.doctrine_dbal
+          #        test: cache.adapter.filesystem
         # Unique name of your app: used to compute stable namespaces for cache keys.
         #prefix_seed: your_vendor_name/app_name
 

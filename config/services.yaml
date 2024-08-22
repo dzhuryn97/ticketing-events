@@ -10,7 +10,7 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-
+#    _instanceof:
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -18,7 +18,44 @@ services:
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
+            - '../src/Complex/'
             - '../src/Kernel.php'
+            - '../src/Presenter/Event/DatetimeImmutableFilter.php'
 
+
+
+    App\Application\Category\CreateCategory\CategoryCreatedDomainEventHandler:
+        tags:
+            - { name: kernel.event_listener}
+
+    complex.test:
+        class: App\Complex\TestComplex
+        arguments: [!service_closure '@logger']
+
+    App\Complex\TestComplex: '@complex.test'
+
+    App\Handler\Handler1:
+        tags:
+            - {name: 'test_tag' }
+    App\Presenter\Event\CancelEventSaga\CancelEventSaga:
+        tags:
+            - {name: messenger.message_handler, handles: App\Domain\Event\EventCanceledDomainEvent, method: handleEventCanceledDomainEvent }
+            - {name: messenger.message_handler, handles: Ticketing\Common\IntegrationEvent\Ticket\EventTicketsArchivedIntegrationEvent, method: handleIntegrationEvents }
+            - {name: messenger.message_handler, handles: Ticketing\Common\IntegrationEvent\Ticket\EventPaymentsRefundedIntegrationEvent, method: handleIntegrationEvents }
+
+
+#    App\CommandBus:
+
+    #        arguments:
+#            - '@service_container'
+#    App\TestService:
+#        configurator: '@App\TestServiceConfigurator'
+#        arguments:
+#            $container: '@service_container'
+
+#    api_platform.state.error_provider:
+#        class: App\Presenter\Error\ErrorProvider
+#        tags:
+#            - { name: api_platform.state_provider }
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
