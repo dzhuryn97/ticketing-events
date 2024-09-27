@@ -44,6 +44,8 @@ services:
             - {name: messenger.message_handler, handles: Ticketing\Common\IntegrationEvent\Ticket\EventPaymentsRefundedIntegrationEvent, method: handleIntegrationEvents }
 
 
+#    api_platform.state.error_provider:
+#        class: App\Presenter\ErrorProvider
 #    App\CommandBus:
 
     #        arguments:

@@ -18,9 +18,8 @@ class Category extends DomainEntity
     private string $name;
 
     public function __construct(
-        string $name
-    )
-    {
+        string $name,
+    ) {
         $this->id = UuidV4::uuid4();
         $this->name = $name;
 
@@ -28,9 +27,8 @@ class Category extends DomainEntity
     }
 
     public function update(
-        string $name
-    )
-    {
+        string $name,
+    ): void {
         $this->name = $name;
         $this->raiseDomainEvent(new CategoryUpdatedDomainEvent($this->id));
     }
@@ -44,5 +42,4 @@ class Category extends DomainEntity
     {
         return $this->name;
     }
-
 }

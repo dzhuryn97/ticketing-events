@@ -7,7 +7,7 @@ use App\Domain\Event\Exception\EventAlreadyCanceledException;
 use App\Domain\Event\Exception\EventAlreadyStartedException;
 use App\Domain\Event\Exception\EventEndDatePrecedesStartDateException;
 use App\Domain\Event\Exception\EventNoDraftStatusException;
-use Doctrine\ORM\Mapping as Mapping;
+use Doctrine\ORM\Mapping;
 use Ramsey\Uuid\Rfc4122\UuidV4;
 use Ramsey\Uuid\UuidInterface;
 use Ticketing\Common\Domain\DomainEntity;
@@ -17,7 +17,6 @@ use Ticketing\Common\Domain\DomainEntity;
 )]
 class Event extends DomainEntity
 {
-
     #[Mapping\Id]
     #[Mapping\Column(type: 'uuid')]
     private UuidInterface $id;
@@ -38,14 +37,13 @@ class Event extends DomainEntity
     private EventStatus $status;
 
     public function __construct(
-        Category            $category,
-        string              $title,
-        string              $description,
-        string              $location,
-        \DateTimeImmutable  $startsAt,
+        Category $category,
+        string $title,
+        string $description,
+        string $location,
+        \DateTimeImmutable $startsAt,
         ?\DateTimeImmutable $endsAt,
-    )
-    {
+    ) {
         if ($endsAt && $endsAt < $startsAt) {
             throw new EventEndDatePrecedesStartDateException();
         }
@@ -64,25 +62,20 @@ class Event extends DomainEntity
 
     public function publish(): void
     {
-        if ($this->status !== EventStatus::Draft) {
-//            throw new EventNoDraftStatusException();
+        if (EventStatus::Draft !== $this->status) {
+            throw new EventNoDraftStatusException();
         }
 
-        if($this->status == EventStatus::Published){
-            $this->status = EventStatus::Draft;
-        } else {
-            $this->status = EventStatus::Published;
-        }
-//        $this->status = EventStatus::Published;
+
+        $this->status = EventStatus::Published;
         $this->raiseDomainEvent(new EventPublishedDomainEvent($this->id));
     }
 
     public function reschedule(
-        \DateTimeImmutable  $startsAt,
+        \DateTimeImmutable $startsAt,
         ?\DateTimeImmutable $endsAt,
-    ): void
-    {
-        if ($this->startsAt === $startsAt && $this->endsAt === $endsAt){
+    ): void {
+        if ($this->startsAt == $startsAt && $this->endsAt == $endsAt) {
             return;
         }
 
@@ -94,11 +87,11 @@ class Event extends DomainEntity
 
     public function cancel(\DateTimeImmutable $now): void
     {
-        if($this->status === EventStatus::Canceled){
+        if (EventStatus::Canceled === $this->status) {
             throw new EventAlreadyCanceledException();
         }
 
-        if($this->startsAt < $now){
+        if ($this->startsAt < $now) {
             throw new EventAlreadyStartedException();
         }
 
@@ -115,6 +108,7 @@ class Event extends DomainEntity
     {
         return $this->category;
     }
+
     public function getTitle(): string
     {
         return $this->title;

@@ -14,14 +14,14 @@ use Ticketing\Common\Application\Query\QueryBusInterface;
 class GetCategoryStateProvider implements ProviderInterface
 {
     public function __construct(
-        private readonly QueryBusInterface $queryBus
-    )
-    {
+        private readonly QueryBusInterface $queryBus,
+    ) {
     }
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
-        if($operation instanceof Get){
+
+        if ($operation instanceof Get) {
             $id = $uriVariables['id'];
 
             $category = $this->queryBus->ask(
@@ -31,11 +31,11 @@ class GetCategoryStateProvider implements ProviderInterface
             return CategoryResource::fromCategory($category);
         }
 
-        $categories =$this->queryBus->ask(
+        $categories = $this->queryBus->ask(
             new GetCategoriesQuery()
         );
 
-        return  array_map(function (Category $category){
+        return  array_map(function (Category $category) {
             return CategoryResource::fromCategory($category);
         }, $categories);
     }
