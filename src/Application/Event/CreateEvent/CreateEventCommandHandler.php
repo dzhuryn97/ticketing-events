@@ -7,22 +7,18 @@ use App\Domain\Category\Exception\CategoryNotFoundException;
 use App\Domain\Event\Event;
 use App\Domain\Event\EventRepositoryInterface;
 use Ticketing\Common\Application\Command\CommandHandlerInterface;
-use Ticketing\Common\Application\FlusherInterface;
 
 class CreateEventCommandHandler implements CommandHandlerInterface
 {
     private CategoryRepositoryInterface $categoryRepository;
     private EventRepositoryInterface $eventRepository;
-    private FlusherInterface $flusher;
 
     public function __construct(
         CategoryRepositoryInterface $categoryRepository,
         EventRepositoryInterface $eventRepository,
-        FlusherInterface $flusher,
     ) {
         $this->categoryRepository = $categoryRepository;
         $this->eventRepository = $eventRepository;
-        $this->flusher = $flusher;
     }
 
     public function __invoke(CreateEventCommand $command)
@@ -41,7 +37,6 @@ class CreateEventCommandHandler implements CommandHandlerInterface
             $command->endsAt,
         );
         $this->eventRepository->add($event);
-        $this->flusher->flush();
 
         return $event->getId();
     }

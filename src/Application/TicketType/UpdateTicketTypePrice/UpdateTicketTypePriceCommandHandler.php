@@ -5,13 +5,11 @@ namespace App\Application\TicketType\UpdateTicketTypePrice;
 use App\Domain\TicketType\TicketTypeNotFoundException;
 use App\Domain\TicketType\TicketTypeRepositoryInterface;
 use Ticketing\Common\Application\Command\CommandHandlerInterface;
-use Ticketing\Common\Application\FlusherInterface;
 
 class UpdateTicketTypePriceCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private readonly TicketTypeRepositoryInterface $ticketTypeRepository,
-        private readonly FlusherInterface $flusher,
     ) {
     }
 
@@ -21,7 +19,9 @@ class UpdateTicketTypePriceCommandHandler implements CommandHandlerInterface
         if (!$ticketType) {
             throw new TicketTypeNotFoundException($command->ticketTypeId);
         }
+
         $ticketType->changePrice($command->price);
-        $this->flusher->flush();
+
+        $this->ticketTypeRepository->save($ticketType);
     }
 }

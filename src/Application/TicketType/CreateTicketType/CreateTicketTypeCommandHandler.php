@@ -7,14 +7,12 @@ use App\Domain\Event\Exception\EventNotFoundException;
 use App\Domain\TicketType\TicketType;
 use App\Domain\TicketType\TicketTypeRepositoryInterface;
 use Ticketing\Common\Application\Command\CommandHandlerInterface;
-use Ticketing\Common\Application\FlusherInterface;
 
 class CreateTicketTypeCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private readonly EventRepositoryInterface $eventRepository,
         private readonly TicketTypeRepositoryInterface $ticketTypeRepository,
-        private readonly FlusherInterface $flusher,
     ) {
     }
 
@@ -34,7 +32,6 @@ class CreateTicketTypeCommandHandler implements CommandHandlerInterface
         );
 
         $this->ticketTypeRepository->add($ticketType);
-        $this->flusher->flush();
 
         return $ticketType->getId();
     }

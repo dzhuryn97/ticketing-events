@@ -17,6 +17,8 @@ interface EventRepositoryInterface
 
     public function add(Event $event): void;
 
+    public function save(Event $event): void;
+
     /**
      * @return PaginatedResults<Category>
      */

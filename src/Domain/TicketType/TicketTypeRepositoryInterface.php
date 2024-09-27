@@ -16,8 +16,10 @@ interface TicketTypeRepositoryInterface
 
     public function add(TicketType $ticketType): void;
 
+    public function save(TicketType $ticketType): void;
+
     /**
      * @return array<TicketType>
      */
-    public function all();
+    public function all(): array;
 }

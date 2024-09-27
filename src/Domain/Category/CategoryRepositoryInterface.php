@@ -9,6 +9,8 @@ interface CategoryRepositoryInterface
 {
     public function add(Category $category): void;
 
+    public function save(Category $category): void;
+
     public function findById(UuidInterface $id): ?Category;
 
     /**

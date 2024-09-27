@@ -21,6 +21,7 @@ class CategoryRepository extends ServiceEntityRepository implements CategoryRepo
     public function add(Category $category): void
     {
         $this->em->persist($category);
+        $this->em->flush();
     }
 
     public function findById(UuidInterface $id): ?Category
@@ -31,5 +32,10 @@ class CategoryRepository extends ServiceEntityRepository implements CategoryRepo
     public function all(): array
     {
         return $this->findAll();
+    }
+
+    public function save(Category $category): void
+    {
+        $this->em->flush();
     }
 }

@@ -10,9 +10,12 @@ use Ramsey\Uuid\UuidInterface;
 
 class TicketTypeRepository extends ServiceEntityRepository implements \App\Domain\TicketType\TicketTypeRepositoryInterface
 {
+    private \Doctrine\ORM\EntityManagerInterface $em;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, TicketType::class);
+        $this->em = $this->getEntityManager();
     }
 
     public function findById(UuidInterface $ticketTypeId): ?TicketType
@@ -25,7 +28,12 @@ class TicketTypeRepository extends ServiceEntityRepository implements \App\Domai
         $this->getEntityManager()->persist($ticketType);
     }
 
-    public function all()
+    public function save(TicketType $ticketType): void
+    {
+        $this->em->flush();
+    }
+
+    public function all(): array
     {
         return $this->findAll();
     }

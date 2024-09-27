@@ -4,14 +4,12 @@ namespace App\Application\Category\UpdateCategory;
 
 use App\Domain\Category\CategoryRepositoryInterface;
 use Ticketing\Common\Application\Command\CommandHandlerInterface;
-use Ticketing\Common\Application\FlusherInterface;
 use Ticketing\Common\Domain\Exception\EntityNotFoundException;
 
 class UpdateCategoryCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private readonly CategoryRepositoryInterface $categoryRepository,
-        private readonly FlusherInterface $flusher,
     ) {
     }
 
@@ -24,6 +22,6 @@ class UpdateCategoryCommandHandler implements CommandHandlerInterface
         }
 
         $category->update($command->name);
-        $this->flusher->flush();
+        $this->categoryRepository->save($category);
     }
 }
