@@ -2,11 +2,9 @@
 
 namespace App\Presenter\TicketType;
 
-
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Domain\TicketType\TicketType;
@@ -25,8 +23,8 @@ use Symfony\Component\Serializer\Attribute\Groups;
             processor: CreateTicketTypeProcessor::class,
             denormalizationContext: [
                 'groups' => [
-                    'ticketType:create'
-                ]
+                    'ticketType:create',
+                ],
             ]
         ),
         new Put(
@@ -34,15 +32,15 @@ use Symfony\Component\Serializer\Attribute\Groups;
             uriTemplate: '/ticket_types/{id}/change_price',
             denormalizationContext: [
                 'groups' => [
-                    'ticketType:changePrice'
-                ]
+                    'ticketType:changePrice',
+                ],
             ]
         ),
     ],
     normalizationContext: [
-        'groups'=>[
-            'ticketType:view'
-        ]
+        'groups' => [
+            'ticketType:view',
+        ],
     ],
     paginationEnabled: false,
     provider: TicketTypStateProvider::class
@@ -74,5 +72,4 @@ class TicketTypeResource
 
         return $ticketTypeResource;
     }
-
 }

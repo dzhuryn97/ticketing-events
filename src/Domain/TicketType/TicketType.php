@@ -3,7 +3,7 @@
 namespace App\Domain\TicketType;
 
 use App\Domain\Event\Event;
-use Doctrine\ORM\Mapping as Mapping;
+use Doctrine\ORM\Mapping;
 use Ramsey\Uuid\Rfc4122\UuidV4;
 use Ramsey\Uuid\UuidInterface;
 use Ticketing\Common\Domain\DomainEntity;
@@ -13,7 +13,6 @@ use Ticketing\Common\Domain\DomainEntity;
 )]
 class TicketType extends DomainEntity
 {
-
     #[Mapping\Id]
     #[Mapping\Column(type: 'uuid')]
     private UuidInterface $id;
@@ -31,13 +30,12 @@ class TicketType extends DomainEntity
     private int $quantity;
 
     public function __construct(
-        Event  $event,
+        Event $event,
         string $name,
-        float  $price,
+        float $price,
         string $currency,
-        int    $quantity,
-    )
-    {
+        int $quantity,
+    ) {
         $this->id = UuidV4::uuid4();
         $this->event = $event;
         $this->name = $name;

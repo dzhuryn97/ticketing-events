@@ -15,8 +15,7 @@ class CreateCategoryProcessor implements ProcessorInterface
     public function __construct(
         private readonly CommandBusInterface $commandBus,
         private readonly QueryBusInterface $queryBus,
-    )
-    {
+    ) {
     }
 
     /**
@@ -24,7 +23,7 @@ class CreateCategoryProcessor implements ProcessorInterface
      */
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
     {
-        $categoryId =$this->commandBus->dispatch(new CreateCategoryCommand(
+        $categoryId = $this->commandBus->dispatch(new CreateCategoryCommand(
             $data->name
         ));
 

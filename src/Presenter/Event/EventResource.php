@@ -2,8 +2,6 @@
 
 namespace App\Presenter\Event;
 
-use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
@@ -12,7 +10,6 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\QueryParameter;
-use App\Application\Event\SearchEvents\SearchEventsQuery;
 use App\Domain\Event\Event;
 use App\Presenter\Category\CategoryResource;
 use App\Presenter\Event\Processor\CancelEventProcessor;
@@ -38,23 +35,23 @@ use Symfony\Component\Serializer\Attribute\Groups;
                 'categoryId' => new QueryParameter(
                     schema: [
                         'type' => 'string',
-                        'format' => 'uuid'
+                        'format' => 'uuid',
                     ],
-                )
+                ),
             ]
         ),
         new Post(
             denormalizationContext: [
                 'groups' => [
-                    'event:create'
-                ]
+                    'event:create',
+                ],
             ],
             processor: CreateEventProcessor::class
         ),
         new Put(
             uriTemplate: '/events/{id}/publish',
             denormalizationContext: [
-                'groups' => ['event:publish']
+                'groups' => ['event:publish'],
             ],
             processor: PublishEventProcessor::class
         ),
@@ -62,7 +59,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
         new Put(
             uriTemplate: '/events/{id}/cancel',
             denormalizationContext: [
-                'groups' => ['event:cancel']
+                'groups' => ['event:cancel'],
             ],
             processor: CancelEventProcessor::class
         ),
@@ -70,7 +67,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
         new Patch(
             uriTemplate: '/events/{id}/reschedule',
             denormalizationContext: [
-                'groups' => ['event:reschedule']
+                'groups' => ['event:reschedule'],
             ],
             processor: RescheduleEventProcessor::class
         ),
@@ -89,11 +86,10 @@ class EventResource
     public string $description;
     #[Groups(['event:create', 'event:read'])]
     public string $location;
-    #[Groups(['event:create', 'event:read','event:reschedule'])]
+    #[Groups(['event:create', 'event:read', 'event:reschedule'])]
     public \DateTimeImmutable $startsAt;
-    #[Groups(['event:create', 'event:read','event:reschedule'])]
+    #[Groups(['event:create', 'event:read', 'event:reschedule'])]
     public ?\DateTimeImmutable $endsAt;
-
 
     public static function fromEvent(Event $event): self
     {

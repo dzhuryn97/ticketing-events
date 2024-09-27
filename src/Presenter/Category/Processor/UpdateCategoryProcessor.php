@@ -9,11 +9,9 @@ use Ticketing\Common\Application\Command\CommandBusInterface;
 
 class UpdateCategoryProcessor implements ProcessorInterface
 {
-
     public function __construct(
-        private readonly CommandBusInterface $commandBus
-    )
-    {
+        private readonly CommandBusInterface $commandBus,
+    ) {
     }
 
     /**

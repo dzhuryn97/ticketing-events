@@ -3,7 +3,7 @@
 namespace App\Presenter\Event\CancelEventSaga;
 
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping as Mapping;
+use Doctrine\ORM\Mapping;
 use Ramsey\Uuid\UuidInterface;
 
 #[Entity(
@@ -18,9 +18,9 @@ class CancelEventSagaState
     private CancelEventSagaStateEnum $state;
 
     public function __construct(
-        UuidInterface $correlationId, CancelEventSagaStateEnum $state
-    )
-    {
+        UuidInterface $correlationId,
+        CancelEventSagaStateEnum $state,
+    ) {
         $this->correlationId = $correlationId;
         $this->state = $state;
     }

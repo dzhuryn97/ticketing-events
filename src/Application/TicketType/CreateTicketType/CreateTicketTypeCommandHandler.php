@@ -12,11 +12,10 @@ use Ticketing\Common\Application\FlusherInterface;
 class CreateTicketTypeCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly EventRepositoryInterface      $eventRepository,
+        private readonly EventRepositoryInterface $eventRepository,
         private readonly TicketTypeRepositoryInterface $ticketTypeRepository,
-        private readonly FlusherInterface              $flusher
-    )
-    {
+        private readonly FlusherInterface $flusher,
+    ) {
     }
 
     public function __invoke(CreateTicketTypeCommand $command)

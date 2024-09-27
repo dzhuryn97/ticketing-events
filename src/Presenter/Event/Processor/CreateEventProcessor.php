@@ -14,9 +14,8 @@ class CreateEventProcessor implements ProcessorInterface
 {
     public function __construct(
         private readonly CommandBusInterface $commandBus,
-        private readonly QueryBusInterface $queryBus
-    )
-    {
+        private readonly QueryBusInterface $queryBus,
+    ) {
     }
 
     /**

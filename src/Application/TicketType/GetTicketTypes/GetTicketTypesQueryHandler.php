@@ -8,9 +8,8 @@ use Ticketing\Common\Application\Query\QueryHandlerInterface;
 class GetTicketTypesQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
-        private readonly TicketTypeRepositoryInterface $ticketTypeRepository
-    )
-    {
+        private readonly TicketTypeRepositoryInterface $ticketTypeRepository,
+    ) {
     }
 
     public function __invoke(GetTicketTypesQuery $query)

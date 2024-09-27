@@ -8,9 +8,8 @@ use Ticketing\Common\Application\Query\QueryHandlerInterface;
 class GetCategoriesQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
-        private readonly CategoryRepositoryInterface $categoryRepository
-    )
-    {
+        private readonly CategoryRepositoryInterface $categoryRepository,
+    ) {
     }
 
     public function __invoke(GetCategoriesQuery $query)

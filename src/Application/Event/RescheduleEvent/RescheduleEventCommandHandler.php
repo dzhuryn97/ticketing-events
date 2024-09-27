@@ -14,9 +14,8 @@ class RescheduleEventCommandHandler implements CommandHandlerInterface
 
     public function __construct(
         EventRepositoryInterface $eventRepository,
-        FlusherInterface         $flusher
-    )
-    {
+        FlusherInterface $flusher,
+    ) {
         $this->eventRepository = $eventRepository;
         $this->flusher = $flusher;
     }
@@ -24,7 +23,7 @@ class RescheduleEventCommandHandler implements CommandHandlerInterface
     public function __invoke(RescheduleEventCommand $command)
     {
         $event = $this->eventRepository->findById($command->eventId);
-        if(!$event){
+        if (!$event) {
             throw new EventNotFoundException($command->eventId);
         }
         $event->reschedule($command->startsAt, $command->endsAt);

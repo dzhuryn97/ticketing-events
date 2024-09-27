@@ -14,15 +14,12 @@ use Ticketing\Common\IntegrationEvent\Ticket\EventTicketsArchivedIntegrationEven
 
 class CancelEventSaga
 {
-
     public function __construct(
-        private readonly EventBusInterface      $eventBus,
+        private readonly EventBusInterface $eventBus,
         private readonly CancelEventSagaRepository $eventSagaRepository,
-        private readonly EntityManagerInterface $em
-    )
-    {
+        private readonly EntityManagerInterface $em,
+    ) {
     }
-
 
     public function handleEventCanceledDomainEvent(EventCanceledDomainEvent $event)
     {
@@ -40,37 +37,39 @@ class CancelEventSaga
     {
         $sagaState  = $this->eventSagaRepository->findByCorrelationId($event->eventId);
 
-        if(!$sagaState){
+        if (!$sagaState) {
             throw new \InvalidArgumentException(sprintf('Saga with correlation id %s bot found', $event->eventId));
         }
-        if($sagaState->getCurrentState() === CancelEventSagaStateEnum::CANCELLATION_STARTED){
-            if($event instanceof EventTicketsArchivedIntegrationEvent){
+        if (CancelEventSagaStateEnum::CANCELLATION_STARTED === $sagaState->getCurrentState()) {
+            if ($event instanceof EventTicketsArchivedIntegrationEvent) {
                 $sagaState->updateCurrentState(CancelEventSagaStateEnum::TICKETS_ARCHIVED);
             }
-            if($event instanceof EventPaymentsRefundedIntegrationEvent){
+            if ($event instanceof EventPaymentsRefundedIntegrationEvent) {
                 $sagaState->updateCurrentState(CancelEventSagaStateEnum::PAYMENTS_REFUNDED);
             }
             $this->em->flush();
+
             return;
         }
 
 
-        if($sagaState->getCurrentState() === CancelEventSagaStateEnum::PAYMENTS_REFUNDED && $event instanceof EventTicketsArchivedIntegrationEvent){
+        if (CancelEventSagaStateEnum::PAYMENTS_REFUNDED === $sagaState->getCurrentState() && $event instanceof EventTicketsArchivedIntegrationEvent) {
             $this->eventBus->publish(new EventCancellationCompletedIntegrationEvent(
                 $event->eventId
             ));
             $sagaState->updateCurrentState(CancelEventSagaStateEnum::CANCELLATION_COMPLETED);
             $this->em->flush();
+
             return;
         }
-        if($sagaState->getCurrentState() === CancelEventSagaStateEnum::TICKETS_ARCHIVED && $event instanceof EventPaymentsRefundedIntegrationEvent){
+        if (CancelEventSagaStateEnum::TICKETS_ARCHIVED === $sagaState->getCurrentState() && $event instanceof EventPaymentsRefundedIntegrationEvent) {
             $this->eventBus->publish(new EventCancellationCompletedIntegrationEvent(
                 $event->eventId
             ));
             $sagaState->updateCurrentState(CancelEventSagaStateEnum::CANCELLATION_COMPLETED);
             $this->em->flush();
+
             return;
         }
     }
-
 }

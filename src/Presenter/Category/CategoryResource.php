@@ -23,14 +23,14 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Post(
             processor: CreateCategoryProcessor::class,
             denormalizationContext: [
-                'groups' => ['category:create']
+                'groups' => ['category:create'],
             ]
         ),
         new Put(
             denormalizationContext: [
-                'groups' => ['category:update']
+                'groups' => ['category:update'],
             ]
-        )
+        ),
     ],
     paginationEnabled: false
 )]

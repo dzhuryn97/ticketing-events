@@ -2,7 +2,6 @@
 
 namespace App\Application\TicketType\CreateTicketType;
 
-use App\Domain\Event\Event;
 use Ramsey\Uuid\UuidInterface;
 use Ticketing\Common\Application\Command\CommandInterface;
 
@@ -17,7 +16,6 @@ class CreateTicketTypeCommand implements CommandInterface
         public readonly float $price,
         public readonly string $currency,
         public readonly int $quantity,
-    )
-    {
+    ) {
     }
 }

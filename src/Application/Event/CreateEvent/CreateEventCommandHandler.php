@@ -17,10 +17,9 @@ class CreateEventCommandHandler implements CommandHandlerInterface
 
     public function __construct(
         CategoryRepositoryInterface $categoryRepository,
-        EventRepositoryInterface    $eventRepository,
-        FlusherInterface            $flusher
-    )
-    {
+        EventRepositoryInterface $eventRepository,
+        FlusherInterface $flusher,
+    ) {
         $this->categoryRepository = $categoryRepository;
         $this->eventRepository = $eventRepository;
         $this->flusher = $flusher;

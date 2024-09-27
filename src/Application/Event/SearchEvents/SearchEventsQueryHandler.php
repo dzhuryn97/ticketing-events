@@ -8,11 +8,9 @@ use Ticketing\Common\Application\Query\QueryHandlerInterface;
 class SearchEventsQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
-        private readonly EventRepositoryInterface $eventRepository
-    )
-    {
+        private readonly EventRepositoryInterface $eventRepository,
+    ) {
     }
-
 
     public function __invoke(SearchEventsQuery $query)
     {
@@ -25,6 +23,4 @@ class SearchEventsQueryHandler implements QueryHandlerInterface
         );
 
     }
-
-
 }

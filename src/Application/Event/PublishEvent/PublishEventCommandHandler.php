@@ -13,9 +13,8 @@ class PublishEventCommandHandler implements CommandHandlerInterface
 
     public function __construct(
         EventRepositoryInterface $eventRepository,
-        FlusherInterface         $flusher
-    )
-    {
+        FlusherInterface $flusher,
+    ) {
         $this->eventRepository = $eventRepository;
         $this->flusher = $flusher;
     }

@@ -8,8 +8,7 @@ use Ticketing\Common\Application\Command\CommandInterface;
 class PublishEventCommand implements CommandInterface
 {
     public function __construct(
-        public readonly UuidInterface $id
-    )
-    {
+        public readonly UuidInterface $id,
+    ) {
     }
 }

@@ -8,12 +8,14 @@ use Ticketing\Common\Domain\Dto\PaginatedResults;
 
 interface EventRepositoryInterface
 {
-    public function findById(UuidInterface $id):?Event;
+    public function findById(UuidInterface $id): ?Event;
+
     /**
      * @return array<Event>
      */
-    public function all():array;
-    public function add(Event $event):void;
+    public function all(): array;
+
+    public function add(Event $event): void;
 
     /**
      * @return PaginatedResults<Category>
@@ -24,6 +26,5 @@ interface EventRepositoryInterface
         ?\DateTimeImmutable $endsAt,
         int $page,
         int $pageSize,
-    ):PaginatedResults;
-
+    ): PaginatedResults;
 }

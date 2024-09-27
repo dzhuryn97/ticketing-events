@@ -16,14 +16,13 @@ class CancelEventSagaRepository extends ServiceEntityRepository
         $this->em = $this->getEntityManager();
     }
 
-
-    public function createSagaState(\Ramsey\Uuid\UuidInterface $correlationId)
+    public function createSagaState(UuidInterface $correlationId)
     {
-        $state= new CancelEventSagaState($correlationId, CancelEventSagaStateEnum::CANCELLATION_STARTED);
+        $state = new CancelEventSagaState($correlationId, CancelEventSagaStateEnum::CANCELLATION_STARTED);
         $this->em->persist($state);
     }
 
-    public function findByCorrelationId(UuidInterface $correlationId):?CancelEventSagaState
+    public function findByCorrelationId(UuidInterface $correlationId): ?CancelEventSagaState
     {
         return $this->find($correlationId);
     }

@@ -8,8 +8,7 @@ use Ticketing\Common\Application\Query\QueryInterface;
 class GetCategoryQuery implements QueryInterface
 {
     public function __construct(
-        public UuidInterface $id
-    )
-    {
+        public UuidInterface $id,
+    ) {
     }
 }

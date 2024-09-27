@@ -11,7 +11,6 @@ use Ticketing\Common\Application\Query\QueryInterface;
 class GetTicketTypesQuery implements QueryInterface
 {
     public function __construct(
-    )
-    {
+    ) {
     }
 }

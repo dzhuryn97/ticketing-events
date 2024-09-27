@@ -12,8 +12,7 @@ use Ticketing\Common\Application\Query\QueryInterface;
 class GetTicketTypeQuery implements QueryInterface
 {
     public function __construct(
-        public readonly UuidInterface $ticketTypeId
-    )
-    {
+        public readonly UuidInterface $ticketTypeId,
+    ) {
     }
 }

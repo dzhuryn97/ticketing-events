@@ -8,10 +8,11 @@ use Ramsey\Uuid\UuidInterface;
 interface CategoryRepositoryInterface
 {
     public function add(Category $category): void;
-    public function findById(UuidInterface $id):?Category;
+
+    public function findById(UuidInterface $id): ?Category;
 
     /**
      * @return Collection<Category>
      */
-    public function all():array;
+    public function all(): array;
 }

@@ -18,7 +18,6 @@ class SearchEventsQuery implements QueryInterface
         public readonly ?\DateTimeImmutable $endsAt,
         public readonly int $page,
         public readonly int $pageSize,
-    )
-    {
+    ) {
     }
 }

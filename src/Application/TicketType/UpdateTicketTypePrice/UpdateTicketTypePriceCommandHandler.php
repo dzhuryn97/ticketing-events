@@ -11,15 +11,14 @@ class UpdateTicketTypePriceCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private readonly TicketTypeRepositoryInterface $ticketTypeRepository,
-        private readonly FlusherInterface              $flusher
-    )
-    {
+        private readonly FlusherInterface $flusher,
+    ) {
     }
 
     public function __invoke(UpdateTicketTypePriceCommand $command)
     {
         $ticketType = $this->ticketTypeRepository->findById($command->ticketTypeId);
-        if(!$ticketType){
+        if (!$ticketType) {
             throw new TicketTypeNotFoundException($command->ticketTypeId);
         }
         $ticketType->changePrice($command->price);

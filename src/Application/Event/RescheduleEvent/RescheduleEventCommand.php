@@ -11,7 +11,6 @@ class RescheduleEventCommand implements CommandInterface
         public readonly UuidInterface $eventId,
         public readonly \DateTimeImmutable $startsAt,
         public readonly ?\DateTimeImmutable $endsAt,
-    )
-    {
+    ) {
     }
 }

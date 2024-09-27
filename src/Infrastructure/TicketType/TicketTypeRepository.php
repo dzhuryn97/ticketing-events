@@ -10,7 +10,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class TicketTypeRepository extends ServiceEntityRepository implements \App\Domain\TicketType\TicketTypeRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry,)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, TicketType::class);
     }
@@ -25,9 +25,6 @@ class TicketTypeRepository extends ServiceEntityRepository implements \App\Domai
         $this->getEntityManager()->persist($ticketType);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function all()
     {
         return $this->findAll();
@@ -36,7 +33,7 @@ class TicketTypeRepository extends ServiceEntityRepository implements \App\Domai
     public function getByEvent(Event $event): array
     {
         return $this->findBy([
-            'event' => $event
+            'event' => $event,
         ]);
     }
 }

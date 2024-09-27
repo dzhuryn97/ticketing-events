@@ -10,15 +10,14 @@ use Ticketing\Common\Application\Query\QueryHandlerInterface;
 class GetEventQueryHandler implements QueryHandlerInterface
 {
     public function __construct(
-        private readonly EventRepositoryInterface $eventRepository
-    )
-    {
+        private readonly EventRepositoryInterface $eventRepository,
+    ) {
     }
 
     public function __invoke(GetEventQuery $query): Event
     {
         $event = $this->eventRepository->findById($query->eventId);
-        if(!$event){
+        if (!$event) {
             throw new EventNotFoundException($query->eventId);
         }
 

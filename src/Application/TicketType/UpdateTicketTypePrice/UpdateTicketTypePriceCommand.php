@@ -9,8 +9,7 @@ class UpdateTicketTypePriceCommand implements CommandInterface
 {
     public function __construct(
         public readonly UuidInterface $ticketTypeId,
-        public readonly float $price
-    )
-    {
+        public readonly float $price,
+    ) {
     }
 }

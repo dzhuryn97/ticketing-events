@@ -10,7 +10,6 @@ class UpdateCategoryCommand implements CommandInterface
     public function __construct(
         public UuidInterface $id,
         public string $name,
-    )
-    {
+    ) {
     }
 }

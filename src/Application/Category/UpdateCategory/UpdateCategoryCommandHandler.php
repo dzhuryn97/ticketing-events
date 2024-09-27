@@ -11,9 +11,8 @@ class UpdateCategoryCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
         private readonly CategoryRepositoryInterface $categoryRepository,
-        private readonly FlusherInterface                     $flusher
-    )
-    {
+        private readonly FlusherInterface $flusher,
+    ) {
     }
 
     public function __invoke(UpdateCategoryCommand $command)

@@ -13,14 +13,13 @@ use Ticketing\Common\Application\Query\QueryBusInterface;
 class TicketTypStateProvider implements ProviderInterface
 {
     public function __construct(
-        private readonly QueryBusInterface $queryBus
-    )
-    {
+        private readonly QueryBusInterface $queryBus,
+    ) {
     }
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
-        if($operation instanceof Get){
+        if ($operation instanceof Get) {
             $id = $uriVariables['id'];
             $ticketType = $this->queryBus->ask(
                 new GetTicketTypeQuery($id)
@@ -32,8 +31,8 @@ class TicketTypStateProvider implements ProviderInterface
             new GetTicketTypesQuery()
         );
 
-        return array_map(function (TicketType $ticketType){
+        return array_map(function (TicketType $ticketType) {
             return TicketTypeResource::fromTicketType($ticketType);
-        },$ticketTypes);
+        }, $ticketTypes);
     }
 }

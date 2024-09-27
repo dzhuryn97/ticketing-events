@@ -10,9 +10,8 @@ class CategoryUpdatedDomainEvent extends DomainEvent
     public readonly UuidInterface $categoryId;
 
     public function __construct(
-        UuidInterface $categoryId
-    )
-    {
+        UuidInterface $categoryId,
+    ) {
         $this->categoryId = $categoryId;
         parent::__construct();
     }

@@ -12,8 +12,7 @@ use Ticketing\Common\Application\Query\QueryInterface;
 class GetEventQuery implements QueryInterface
 {
     public function __construct(
-        public readonly UuidInterface $eventId
-    )
-    {
+        public readonly UuidInterface $eventId,
+    ) {
     }
 }

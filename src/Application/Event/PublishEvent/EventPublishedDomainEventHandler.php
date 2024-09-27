@@ -15,11 +15,10 @@ use Ticketing\Common\IntegrationEvent\Event\TicketTypeModel;
 class EventPublishedDomainEventHandler implements DomainEventHandlerInterface
 {
     public function __construct(
-        private readonly EventRepositoryInterface      $eventRepository,
+        private readonly EventRepositoryInterface $eventRepository,
         private readonly TicketTypeRepositoryInterface $ticketTypeRepository,
-        private readonly EventBusInterface $eventBus
-    )
-    {
+        private readonly EventBusInterface $eventBus,
+    ) {
     }
 
     public function __invoke(EventPublishedDomainEvent $domainEvent)

@@ -14,9 +14,8 @@ class PublishEventProcessor implements ProcessorInterface
 {
     public function __construct(
         private readonly CommandBusInterface $commandBus,
-        private readonly QueryBusInterface $queryBus
-    )
-    {
+        private readonly QueryBusInterface $queryBus,
+    ) {
     }
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])

@@ -14,7 +14,6 @@ class CreateEventCommand implements CommandInterface
         public readonly string $location,
         public readonly \DateTimeImmutable $startsAt,
         public readonly ?\DateTimeImmutable $endsAt,
-    )
-    {
+    ) {
     }
 }
