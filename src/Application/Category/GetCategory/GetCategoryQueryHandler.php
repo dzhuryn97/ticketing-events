@@ -3,8 +3,8 @@
 namespace App\Application\Category\GetCategory;
 
 use App\Domain\Category\CategoryRepositoryInterface;
+use App\Domain\Category\Exception\CategoryNotFoundException;
 use Ticketing\Common\Application\Query\QueryHandlerInterface;
-use Ticketing\Common\Domain\Exception\EntityNotFoundException;
 
 class GetCategoryQueryHandler implements QueryHandlerInterface
 {
@@ -17,7 +17,7 @@ class GetCategoryQueryHandler implements QueryHandlerInterface
     {
         $category =  $this->categoryRepository->findById($query->id);
         if (!$category) {
-            throw new EntityNotFoundException();
+            throw new CategoryNotFoundException($query->id);
         }
 
         return $category;

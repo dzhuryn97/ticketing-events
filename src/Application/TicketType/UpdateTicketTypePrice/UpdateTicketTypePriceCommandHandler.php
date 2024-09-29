@@ -2,7 +2,7 @@
 
 namespace App\Application\TicketType\UpdateTicketTypePrice;
 
-use App\Domain\TicketType\TicketTypeNotFoundException;
+use App\Domain\TicketType\Exception\TicketTypeNotFoundException;
 use App\Domain\TicketType\TicketTypeRepositoryInterface;
 use Ticketing\Common\Application\Command\CommandHandlerInterface;
 

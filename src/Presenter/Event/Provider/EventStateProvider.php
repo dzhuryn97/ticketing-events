@@ -8,7 +8,7 @@ use App\Application\Event\GetEvent\GetEventQuery;
 use App\Presenter\Event\EventResource;
 use Ticketing\Common\Application\Query\QueryBusInterface;
 
-class GetEventStateProvider implements ProviderInterface
+class EventStateProvider implements ProviderInterface
 {
     public function __construct(
         private readonly QueryBusInterface $queryBus,

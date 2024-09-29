@@ -16,14 +16,14 @@ use App\Presenter\Event\Processor\CancelEventProcessor;
 use App\Presenter\Event\Processor\CreateEventProcessor;
 use App\Presenter\Event\Processor\PublishEventProcessor;
 use App\Presenter\Event\Processor\RescheduleEventProcessor;
-use App\Presenter\Event\Provider\GetEventStateProvider;
+use App\Presenter\Event\Provider\EventStateProvider;
 use App\Presenter\Event\Provider\SearchEventsStateProvider;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ApiResource(
     shortName: 'event',
-    provider: GetEventStateProvider::class,
+    provider: EventStateProvider::class,
     operations: [
         new Get(
 

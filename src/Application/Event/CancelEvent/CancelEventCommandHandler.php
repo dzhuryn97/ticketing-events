@@ -19,6 +19,7 @@ class CancelEventCommandHandler implements CommandHandlerInterface
         if (!$event) {
             throw new EventNotFoundException($command->eventId);
         }
+
         $event->cancel(new \DateTimeImmutable());
 
         $this->eventRepository->save($event);

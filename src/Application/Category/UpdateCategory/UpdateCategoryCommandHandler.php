@@ -3,8 +3,8 @@
 namespace App\Application\Category\UpdateCategory;
 
 use App\Domain\Category\CategoryRepositoryInterface;
+use App\Domain\Category\Exception\CategoryNotFoundException;
 use Ticketing\Common\Application\Command\CommandHandlerInterface;
-use Ticketing\Common\Domain\Exception\EntityNotFoundException;
 
 class UpdateCategoryCommandHandler implements CommandHandlerInterface
 {
@@ -18,7 +18,7 @@ class UpdateCategoryCommandHandler implements CommandHandlerInterface
         $category = $this->categoryRepository->findById($command->id);
 
         if (!$category) {
-            throw new EntityNotFoundException();
+            throw new CategoryNotFoundException($command->id);
         }
 
         $category->update($command->name);

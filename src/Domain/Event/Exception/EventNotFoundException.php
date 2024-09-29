@@ -2,12 +2,14 @@
 
 namespace App\Domain\Event\Exception;
 
+use App\Domain\Event\Event;
 use Ramsey\Uuid\UuidInterface;
+use Ticketing\Common\Domain\Exception\EntityNotFoundException;
 
-class EventNotFoundException extends \DomainException
+class EventNotFoundException extends EntityNotFoundException
 {
     public function __construct(UuidInterface $eventId)
     {
-        parent::__construct(sprintf('The event with the identifier % was not found', $eventId));
+        parent::__construct($eventId, Event::class);
     }
 }

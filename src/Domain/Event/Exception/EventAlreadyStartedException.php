@@ -2,10 +2,12 @@
 
 namespace App\Domain\Event\Exception;
 
-class EventAlreadyStartedException extends \DomainException
+use Ticketing\Common\Domain\Exception\BusinessException;
+
+class EventAlreadyStartedException extends BusinessException
 {
     public function __construct()
     {
-        parent::__construct('The event has already started');
+        parent::__construct('The event has already started', 'EventAlreadyStarted');
     }
 }

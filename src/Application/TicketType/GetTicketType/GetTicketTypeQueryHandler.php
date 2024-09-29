@@ -2,7 +2,7 @@
 
 namespace App\Application\TicketType\GetTicketType;
 
-use App\Domain\TicketType\TicketTypeNotFoundException;
+use App\Domain\TicketType\Exception\TicketTypeNotFoundException;
 use App\Domain\TicketType\TicketTypeRepositoryInterface;
 use Ticketing\Common\Application\Query\QueryHandlerInterface;
 

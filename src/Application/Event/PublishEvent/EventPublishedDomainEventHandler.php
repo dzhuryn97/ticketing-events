@@ -24,7 +24,6 @@ class EventPublishedDomainEventHandler implements DomainEventHandlerInterface
     public function __invoke(EventPublishedDomainEvent $domainEvent)
     {
         $event = $this->eventRepository->findById($domainEvent->eventId);
-
         if (!$event) {
             throw new EventNotFoundException($domainEvent->eventId);
         }

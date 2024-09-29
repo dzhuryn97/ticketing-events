@@ -3,7 +3,7 @@
 namespace App\Application\TicketType\CreateTicketType;
 
 use App\Domain\Event\EventRepositoryInterface;
-use App\Domain\Event\Exception\EventNotFoundException;
+use App\Domain\TicketType\Exception\TicketTypeNotFoundException;
 use App\Domain\TicketType\TicketType;
 use App\Domain\TicketType\TicketTypeRepositoryInterface;
 use Ticketing\Common\Application\Command\CommandHandlerInterface;
@@ -20,7 +20,7 @@ class CreateTicketTypeCommandHandler implements CommandHandlerInterface
     {
         $event = $this->eventRepository->findById($command->eventId);
         if (!$event) {
-            throw new EventNotFoundException($command->eventId);
+            throw new TicketTypeNotFoundException($command->eventId);
         }
 
         $ticketType = new TicketType(

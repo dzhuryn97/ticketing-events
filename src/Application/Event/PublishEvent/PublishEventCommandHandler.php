@@ -26,6 +26,5 @@ class PublishEventCommandHandler implements CommandHandlerInterface
         $event->publish();
 
         $this->eventRepository->save($event);
-
     }
 }
