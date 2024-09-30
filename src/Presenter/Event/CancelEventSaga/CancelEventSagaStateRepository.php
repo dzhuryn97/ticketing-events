@@ -6,7 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Ramsey\Uuid\UuidInterface;
 
-class CancelEventSagaRepository extends ServiceEntityRepository
+class CancelEventSagaStateRepository extends ServiceEntityRepository
 {
     private \Doctrine\ORM\EntityManagerInterface $em;
 
@@ -16,10 +16,16 @@ class CancelEventSagaRepository extends ServiceEntityRepository
         $this->em = $this->getEntityManager();
     }
 
-    public function createSagaState(UuidInterface $correlationId)
+    public function createSagaState(UuidInterface $correlationId): void
     {
         $state = new CancelEventSagaState($correlationId, CancelEventSagaStateEnum::CANCELLATION_STARTED);
         $this->em->persist($state);
+        $this->em->flush();
+    }
+
+    public function save(CancelEventSagaState $sagaState): void
+    {
+        $this->em->flush();
     }
 
     public function findByCorrelationId(UuidInterface $correlationId): ?CancelEventSagaState

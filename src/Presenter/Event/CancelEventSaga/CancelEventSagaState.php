@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping;
 use Ramsey\Uuid\UuidInterface;
 
 #[Entity(
-    repositoryClass: CancelEventSagaRepository::class
+    repositoryClass: CancelEventSagaStateRepository::class
 )]
 class CancelEventSagaState
 {

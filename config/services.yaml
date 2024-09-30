@@ -22,6 +22,5 @@ services:
 
     App\Presenter\Event\CancelEventSaga\CancelEventSaga:
         tags:
-            - {name: messenger.message_handler, handles: App\Domain\Event\EventCanceledDomainEvent, method: handleEventCanceledDomainEvent }
             - {name: messenger.message_handler, handles: Ticketing\Common\IntegrationEvent\Ticket\EventTicketsArchivedIntegrationEvent, method: handleIntegrationEvents }
             - {name: messenger.message_handler, handles: Ticketing\Common\IntegrationEvent\Ticket\EventPaymentsRefundedIntegrationEvent, method: handleIntegrationEvents }
