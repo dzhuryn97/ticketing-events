@@ -25,7 +25,8 @@ class TicketTypeRepository extends ServiceEntityRepository implements \App\Domai
 
     public function add(TicketType $ticketType): void
     {
-        $this->getEntityManager()->persist($ticketType);
+        $this->em->persist($ticketType);
+        $this->em->flush();
     }
 
     public function save(TicketType $ticketType): void
