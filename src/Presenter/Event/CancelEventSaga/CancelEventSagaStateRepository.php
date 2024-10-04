@@ -3,12 +3,13 @@
 namespace App\Presenter\Event\CancelEventSaga;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Ramsey\Uuid\UuidInterface;
 
 class CancelEventSagaStateRepository extends ServiceEntityRepository
 {
-    private \Doctrine\ORM\EntityManagerInterface $em;
+    private EntityManagerInterface $em;
 
     public function __construct(ManagerRegistry $registry)
     {

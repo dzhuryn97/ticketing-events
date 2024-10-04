@@ -5,6 +5,7 @@ namespace App\Infrastructure\Event;
 use App\Domain\Event\Event;
 use App\Domain\Event\EventRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Ramsey\Uuid\UuidInterface;
 use Ticketing\Common\Domain\Dto\PaginatedResults;
@@ -12,7 +13,7 @@ use Ticketing\Common\Infrastructure\ORM\Paginator;
 
 class EventRepository extends ServiceEntityRepository implements EventRepositoryInterface
 {
-    private \Doctrine\ORM\EntityManagerInterface $em;
+    private EntityManagerInterface $em;
 
     public function __construct(ManagerRegistry $registry)
     {

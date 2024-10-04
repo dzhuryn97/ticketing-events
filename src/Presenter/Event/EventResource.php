@@ -25,9 +25,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
     shortName: 'event',
     provider: EventStateProvider::class,
     operations: [
-        new Get(
-
-        ),
+        new Get(),
         new GetCollection(
             uriTemplate: '/events/search',
             provider: SearchEventsStateProvider::class,

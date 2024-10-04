@@ -36,6 +36,7 @@ class CreateEventCommandHandler implements CommandHandlerInterface
             $command->startsAt,
             $command->endsAt,
         );
+
         $this->eventRepository->add($event);
 
         return $event->getId();

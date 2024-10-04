@@ -5,12 +5,13 @@ namespace App\Infrastructure\Category;
 use App\Domain\Category\Category;
 use App\Domain\Category\CategoryRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Ramsey\Uuid\UuidInterface;
 
 class CategoryRepository extends ServiceEntityRepository implements CategoryRepositoryInterface
 {
-    private \Doctrine\ORM\EntityManagerInterface $em;
+    private EntityManagerInterface $em;
 
     public function __construct(ManagerRegistry $registry)
     {

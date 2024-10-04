@@ -4,13 +4,15 @@ namespace App\Infrastructure\TicketType;
 
 use App\Domain\Event\Event;
 use App\Domain\TicketType\TicketType;
+use App\Domain\TicketType\TicketTypeRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Ramsey\Uuid\UuidInterface;
 
-class TicketTypeRepository extends ServiceEntityRepository implements \App\Domain\TicketType\TicketTypeRepositoryInterface
+class TicketTypeRepository extends ServiceEntityRepository implements TicketTypeRepositoryInterface
 {
-    private \Doctrine\ORM\EntityManagerInterface $em;
+    private EntityManagerInterface $em;
 
     public function __construct(ManagerRegistry $registry)
     {
