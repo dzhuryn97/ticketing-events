@@ -34,6 +34,6 @@ jobs:
                         docker image pull dzhuryn/ticketing-events-webserver:dev
                         docker image pull dzhuryn/ticketing-events-php:dev
                         docker image pull dzhuryn/ticketing-events-jobber:dev
-                        docker compose up -d --force-recreate
-                        docker compose exec events_php bin/console doctrine:migrations:migrate --no-interaction
-                        docker compose exec events_php bin/console doctrine:fixtures:load --no-interaction
+                        docker-compose up -d --force-recreate
+                        docker-compose exec events_php bin/console doctrine:migrations:migrate --no-interaction
+                        docker-compose exec events_php bin/console doctrine:fixtures:load --no-interaction
