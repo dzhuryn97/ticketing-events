@@ -44,6 +44,7 @@ class TicketTypeTest extends AbstractTestCase
     {
         // Arrange
         $category = new Category($this->faker->name());
+        $price = 100;
         $event = new Event(
             $category,
             $this->faker->title(),
@@ -55,13 +56,14 @@ class TicketTypeTest extends AbstractTestCase
         $ticketType = new TicketType(
             $event,
             $this->faker->name(),
-            $this->faker->randomDigit(),
+            $price,
             $this->faker->currencyCode(),
             $this->faker->randomDigit(),
         );
 
         // Act
-        $ticketType->changePrice($this->faker->randomDigit());
+        $newPrice = 200;
+        $ticketType->changePrice($newPrice);
 
         // Assert
         $this->assertDomainEventRaised($ticketType, TicketTypePriceChangedDomainEvent::class);
