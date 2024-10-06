@@ -1,0 +1,43 @@
+version: '3.5'
+
+services:
+    events_php:
+        build:
+            context: ../events
+            dockerfile: ../events/docker/php/Dockerfile
+            target: dev
+        restart: unless-stopped
+        volumes:
+            - ../events/:/app
+            - ../events/docker/php/php.ini:/usr/local/etc/php/php.ini
+            - ../events/docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+        environment:
+            PHP_IDE_CONFIG: 'serverName=events_debug'
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+    events_nginx:
+        build:
+            context: ../events
+            dockerfile: ../events/docker/nginx/Dockerfile
+        restart: unless-stopped
+        environment:
+            PHP_FPM_URI: 'events_php:9000'
+        volumes:
+            - ../events/:/app
+            - ../events/docker/nginx/conf.d:/etc/nginx/conf.d
+            - ../events/docker/nginx/templates:/etc/nginx/templates
+        depends_on:
+            - events_php
+    events_jobber:
+        build:
+            context: ../events
+            dockerfile: ../events/docker/jobber/Dockerfile
+        restart: unless-stopped
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ../events/docker/jobber/supervisord.conf:/etc/supervisor/supervisord.conf:ro
+            - ../events/docker/jobber/conf.d/:/etc/supervisor/conf.d/:ro
+        depends_on:
+            - events_php
+        environment:
+            PROJECT_PREFIX: ${COMPOSE_PROJECT_NAME}

@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+    events_php:
+        image: dzhuryn/ticketing-events-php:${SERVICE_EVENTS_VERSION}
+        restart: unless-stopped
+        environment:
+            DATABASE_URL: 'postgresql://db_user:db_password@database:5432/db_events?serverVersion=16&charset=utf8'
+            MESSENGER_DISTRIBUTED_TRANSPORT_DSN: 'amqp://user:pass@rabbitmq:5672/%2f/messages'
+
+    events_nginx:
+        image: dzhuryn/ticketing-events-webserver:${SERVICE_EVENTS_VERSION}
+        restart: unless-stopped
+        environment:
+            PHP_FPM_URI: 'events_php:9000'
+        depends_on:
+            - events_php
+
+    events_jobber:
+        image: dzhuryn/ticketing-events-jobber:${SERVICE_EVENTS_VERSION}
+        restart: unless-stopped
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        depends_on:
+            - events_php
+        environment:
+            PROJECT_PREFIX: ${COMPOSE_PROJECT_NAME}
