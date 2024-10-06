@@ -24,14 +24,14 @@ jobs:
                 with:
                     docker-user: ${{ secrets.DOCKER_USER }}
                     docker-password: ${{ secrets.DOCKER_PASSWORD }}
-            -   name: Build auth-php and push
+            -   name: Build events-php and push
                 uses: docker/build-push-action@v6
                 with:
                     context: .
                     push: true
                     target: ${{ inputs.image-php-target }}
                     file: docker/php/Dockerfile
-                    tags: dzhuryn/ticketing-auth-php:${{ inputs.image-tag }}
+                    tags: dzhuryn/ticketing-events-php:${{ inputs.image-tag }}
     build-webserver:
         needs: build-php
         runs-on: ubuntu-latest
