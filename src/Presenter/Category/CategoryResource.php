@@ -17,19 +17,25 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     shortName: 'category',
     operations: [
-        new Get(),
-        new GetCollection(),
+        new Get(
+            security: "is_granted('ROLE_CATEGORY_VIEW')",
+        ),
+        new GetCollection(
+            security: "is_granted('ROLE_CATEGORY_VIEW')",
+        ),
         new Post(
             denormalizationContext: [
                 'groups' => ['category:create'],
             ],
-            processor: CreateCategoryProcessor::class
+            security: "is_granted('ROLE_CATEGORY_CREATE')",
+            processor: CreateCategoryProcessor::class,
         ),
         new Put(
             denormalizationContext: [
                 'groups' => ['category:update'],
             ],
-            processor: UpdateCategoryProcessor::class
+            security: "is_granted('ROLE_CATEGORY_UPDATE')",
+            processor: UpdateCategoryProcessor::class,
         ),
     ],
     paginationEnabled: false,

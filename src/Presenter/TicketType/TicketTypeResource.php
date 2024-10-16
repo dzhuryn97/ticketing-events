@@ -17,24 +17,30 @@ use Symfony\Component\Serializer\Attribute\Groups;
 #[ApiResource(
     shortName: 'ticketType',
     operations: [
-        new Get(),
-        new GetCollection(),
+        new Get(
+            security: "is_granted('ROLE_TICKET_TYPE_VIEW')",
+        ),
+        new GetCollection(
+            security: "is_granted('ROLE_TICKET_TYPE_VIEW')",
+        ),
         new Post(
-            processor: CreateTicketTypeProcessor::class,
             denormalizationContext: [
                 'groups' => [
                     'ticketType:create',
                 ],
-            ]
+            ],
+            security: "is_granted('ROLE_TICKET_TYPE_CREATE')",
+            processor: CreateTicketTypeProcessor::class,
         ),
         new Put(
-            processor: UpdateTicketTypePriceProcessor::class,
             uriTemplate: '/ticket_types/{id}/change_price',
             denormalizationContext: [
                 'groups' => [
                     'ticketType:changePrice',
                 ],
-            ]
+            ],
+            security: "is_granted('ROLE_TICKET_TYPE_CHANGE_PRICE')",
+            processor: UpdateTicketTypePriceProcessor::class,
         ),
     ],
     normalizationContext: [
