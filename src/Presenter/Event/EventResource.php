@@ -23,11 +23,13 @@ use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ApiResource(
     shortName: 'event',
-    provider: EventStateProvider::class,
     operations: [
-        new Get(),
+        new Get(
+            security: "is_granted('ROLE_EVENT_VIEW')",
+        ),
         new GetCollection(
             uriTemplate: '/events/search',
+            security: "is_granted('ROLE_EVENT_VIEW')",
             provider: SearchEventsStateProvider::class,
             parameters: [
                 'categoryId' => new QueryParameter(
@@ -36,7 +38,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
                         'format' => 'uuid',
                     ],
                 ),
-            ]
+            ],
         ),
         new Post(
             denormalizationContext: [
@@ -44,14 +46,16 @@ use Symfony\Component\Serializer\Attribute\Groups;
                     'event:create',
                 ],
             ],
-            processor: CreateEventProcessor::class
+            security: "is_granted('ROLE_EVENT_CREATE')",
+            processor: CreateEventProcessor::class,
         ),
         new Put(
             uriTemplate: '/events/{id}/publish',
             denormalizationContext: [
                 'groups' => ['event:publish'],
             ],
-            processor: PublishEventProcessor::class
+            security: "is_granted('ROLE_EVENT_PUBLISH')",
+            processor: PublishEventProcessor::class,
         ),
 
         new Put(
@@ -59,7 +63,8 @@ use Symfony\Component\Serializer\Attribute\Groups;
             denormalizationContext: [
                 'groups' => ['event:cancel'],
             ],
-            processor: CancelEventProcessor::class
+            security: "is_granted('ROLE_EVENT_CANCEL')",
+            processor: CancelEventProcessor::class,
         ),
 
         new Patch(
@@ -67,9 +72,11 @@ use Symfony\Component\Serializer\Attribute\Groups;
             denormalizationContext: [
                 'groups' => ['event:reschedule'],
             ],
-            processor: RescheduleEventProcessor::class
+            security: "is_granted('ROLE_EVENT_RESCHEDULE')",
+            processor: RescheduleEventProcessor::class,
         ),
-    ]
+    ],
+    provider: EventStateProvider::class
 )]
 #[ApiFilter(filterClass: DatetimeImmutableFilter::class, properties: ['startsAt', 'endsAt'])]
 class EventResource
