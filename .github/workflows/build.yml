@@ -50,6 +50,7 @@ jobs:
                     push: true
                     file: docker/nginx/Dockerfile
                     tags: dzhuryn/ticketing-events-webserver:${{ inputs.image-tag }}
+                    target: deployment
                     build-args: PHP_CONTAINER=dzhuryn/ticketing-events-php:${{ inputs.image-tag }}
     build-jobber:
         needs: build-webserver
