@@ -39,14 +39,14 @@ jobs:
         steps:
             -   uses: actions/checkout@v4
             -   name: Prepare deployment-compose file
-                run: mv docker-compose.deployment.yaml docker-compose.auth.yaml
+                run: mv docker-compose.deployment.yaml docker-compose.events.yaml
             -   name: copy file via ssh password
                 uses: appleboy/scp-action@v0.1.7
                 with:
                     host: ${{ secrets.SERVER_HOST }}
                     username: ${{ secrets.SERVER_USERNAME }}
                     key: ${{ secrets.SERVER_KEY }}
-                    source: 'docker-compose.auth.yaml'
+                    source: 'docker-compose.events.yaml'
                     target: '${{ env.PROJECT_FOLDER }}/docker'
             -   name: ssh key passphrase
                 uses: appleboy/ssh-action@v1.0.3

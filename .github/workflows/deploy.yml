@@ -26,14 +26,14 @@ jobs:
         steps:
             -   uses: actions/checkout@v4
             -   name: Prepare deployment-compose file
-                run: mv docker-compose.deployment.yaml docker-compose.auth.yaml
+                run: mv docker-compose.deployment.yaml docker-compose.events.yaml
             -   name: copy file via ssh password
                 uses: appleboy/scp-action@v0.1.7
                 with:
                     host: ${{ secrets.SERVER_HOST }}
                     username: ${{ secrets.SERVER_USERNAME }}
                     key: ${{ secrets.SERVER_KEY }}
-                    source: 'docker-compose.auth.yaml'
+                    source: 'docker-compose.events.yaml'
                     target: '${{ env.PROJECT_FOLDER }}/docker'
             -   name: ssh key passphrase
                 uses: appleboy/ssh-action@v1.0.3
@@ -44,9 +44,9 @@ jobs:
                     debug: true
                     script: |
                         cd ${{ env.PROJECT_FOLDER }}
-                        docker image pull dzhuryn/ticketing-auth-webserver:dev
-                        docker image pull dzhuryn/ticketing-auth-php:dev
-                        docker image pull dzhuryn/ticketing-auth-jobber:dev
+                        docker image pull dzhuryn/ticketing-events-webserver:dev
+                        docker image pull dzhuryn/ticketing-events-php:dev
+                        docker image pull dzhuryn/ticketing-events-jobber:dev
                         docker-compose down gateway
                         docker-compose up -d 
                         docker-compose exec events_php bin/console doctrine:migrations:migrate --no-interaction
