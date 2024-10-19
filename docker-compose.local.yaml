@@ -19,6 +19,9 @@ services:
         build:
             context: ../events
             dockerfile: ../events/docker/nginx/Dockerfile
+            target: build
+            args:
+                PHP_CONTAINER: 'blank'
         restart: unless-stopped
         environment:
             PHP_FPM_URI: 'events_php:9000'
