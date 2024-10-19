@@ -1,6 +1,6 @@
 api_platform:
     title: Events service api
-    version: 2.10.0
+    version: 2.11.0
     mapping:
         paths:
             - '%kernel.project_dir%/src/Presenter/'
